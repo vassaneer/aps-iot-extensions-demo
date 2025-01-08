@@ -135,10 +135,13 @@ export class SensorHeatmapsExtension extends UIBaseExtension {
         this.createToolbarButton('iot-heatmaps-btn', 'IoT Heatmaps', 'https://img.icons8.com/ios-filled/50/000000/heat-map.png'); // <a href="https://icons8.com/icon/8315/heat-map">Heat Map icon by Icons8</a>
     }
 
+    // function to setup shading
     async _setupSurfaceShading(model) {
         if (!this.dataView) {
             return;
         }
+        // rooms
+        // const structureInfo = new Autodesk.DataVisualization.Core.ModelStructureInfo(model);
         const shadingGroup = new Autodesk.DataVisualization.Core.SurfaceShadingGroup('iot-heatmap');
         const rooms = new Map();
         for (const [sensorId, sensor] of this.dataView.getSensors().entries()) {
@@ -157,7 +160,15 @@ export class SensorHeatmapsExtension extends UIBaseExtension {
         this._surfaceShadingData = new Autodesk.DataVisualization.Core.SurfaceShadingData();
         this._surfaceShadingData.addChild(shadingGroup);
         this._surfaceShadingData.initialize(model);
+
         await this._dataVizExt.setupSurfaceShading(model, this._surfaceShadingData);
-        // this._dataVizExt.registerSurfaceShadingColors('temp', [0x00ff00, 0xffff00, 0xff0000]);
+        for(const type of this.dataView.getChannels().keys()){
+          if(this.dataView.getChannels().get(type).color){
+            const color = this.dataView.getChannels().get(type).color.map((x)=>parseInt("0x"+x.substring(1)));
+            console.log(color);
+            this._dataVizExt.registerSurfaceShadingColors(type, color);
+          };
+        }
+
     }
 }

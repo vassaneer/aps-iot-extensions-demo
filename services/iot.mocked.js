@@ -4,11 +4,11 @@ const SENSORS = {
         description: 'Basic sensor in the middle of the living room.',
         groupName: 'Level 1',
         location: {
-            x: 31.92,
-            y: 11.49,
-            z: -12.97
+            x: -40.855347447356536,
+            y: -61.63255171477795,
+            z: 0.05078194733289365
         },
-        objectId: 4124
+        objectId: 2176
     },
     'sensor-2': {
         name: 'Dining Table',
@@ -31,17 +31,6 @@ const SENSORS = {
             z: -12.15
         },
         objectId: 4111
-    },
-    'sensor-4': {
-        name: 'Bedroom',
-        description: 'Basic sensor in the bedroom.',
-        groupName: 'Level 2',
-        location: {
-            x: -7.46,
-            y: 41.47,
-            z: 2.97
-        },
-        objectId: 4085
     }
 };
 
@@ -52,7 +41,8 @@ const CHANNELS = {
         type: 'double',
         unit: '°C',
         min: 18.0,
-        max: 28.0
+        max: 28.0,
+        color: ['#4b0082', '#ffff00', '#ff0000']
     },
     'co2': {
         name: 'CO₂',
@@ -60,7 +50,8 @@ const CHANNELS = {
         type: 'double',
         unit: 'ppm',
         min: 482.81,
-        max: 640.00
+        max: 640.00,
+        color: ['#0000ff', '#ffff00', '#ff0000']
     }
 };
 

@@ -1,15 +1,23 @@
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, ".env") });
 
-let { APS_CLIENT_ID, APS_CLIENT_SECRET, PORT } = process.env;
+let {
+  APS_CLIENT_ID,
+  APS_CLIENT_SECRET,
+  PORT,
+  DATA_API_TOKEN,
+  DATA_API_ENDPOINT,
+} = process.env;
 if (!APS_CLIENT_ID || !APS_CLIENT_SECRET) {
-    console.warn('Missing some of the environment variables.');
-    process.exit(1);
+  console.warn("Missing some of the environment variables.");
+  process.exit(1);
 }
 PORT = PORT || 3000;
 
 module.exports = {
-    APS_CLIENT_ID,
-    APS_CLIENT_SECRET,
-    PORT
+  APS_CLIENT_ID,
+  APS_CLIENT_SECRET,
+  PORT,
+  DATA_API_TOKEN,
+  DATA_API_ENDPOINT,
 };

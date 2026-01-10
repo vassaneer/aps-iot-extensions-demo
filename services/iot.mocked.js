@@ -24,6 +24,15 @@ const CHANNELS = {
     max: 0.0,
     color: ["#ff0000", "#ffff00", "#4b0082"],
   },
+  raw: {
+    name: "Raw",
+    description: "Measure resistance in analog",
+    type: "double",
+    unit: "digital",
+    min: -100000,
+    max: 100000,
+    color: ["#ff0000", "#ffff00", "#4b0082"],
+  },
 };
 
 async function getSensors() {
@@ -55,10 +64,18 @@ async function getSamples(timerange, resolution = 32) {
       // get timestamp
       var timestamps = [];
       var deflection = [];
+      var raw = [];
+
       if (data.hasOwnProperty("deflection_mm")) {
         data.deflection_mm.forEach((item, index) => {
           timestamps.unshift(new Date(item.ts));
           deflection.unshift(parseFloat(item.value));
+        });
+      }
+
+      if (data.hasOwnProperty("raw_avg")) {
+        data.raw_avg.forEach((item, index) => {
+          raw.unshift(parseFloat(item.value));
         });
       }
 
@@ -68,7 +85,7 @@ async function getSamples(timerange, resolution = 32) {
         data: {
           "sensor-1": {
             deflection: deflection,
-            // co2: generateRandomValues(540.0, 600.0, resolution, 5.0),
+            raw: raw,
           },
         },
       };

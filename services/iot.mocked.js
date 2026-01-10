@@ -20,9 +20,9 @@ const CHANNELS = {
     description: "Measure deflection in millimeter",
     type: "double",
     unit: "mm",
-    min: -2.5,
+    min: -100,
     max: 0.0,
-    color: ["#4b0082", "#ffff00", "#ff0000"],
+    color: ["#ff0000", "#ffff00", "#4b0082"],
   },
 };
 
@@ -36,8 +36,8 @@ async function getChannels() {
 
 async function getSamples(timerange, resolution = 32) {
   // fetch data from
-  const startEpoch = new Date(timerange.start).getTime();
-  const endEpoch = new Date(timerange.end).getTime();
+  const startEpoch = new Date(timerange.start).getTime() - 7 * 60 * 60 * 1000;
+  const endEpoch = new Date(timerange.end).getTime() - 7 * 60 * 60 * 1000;
 
   try {
     const resp = await fetch(

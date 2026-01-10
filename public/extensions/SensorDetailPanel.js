@@ -73,10 +73,13 @@ export class SensorDetailPanel extends Autodesk.Viewing.UI.DockingPanel {
   }
 
   _createChart(canvas, timestamps, values, min, max, title) {
+    const offset = 7 * 60 * 60 * 1000;
     return new Chart(canvas.getContext("2d"), {
       type: "line",
       data: {
-        labels: timestamps.map((timestamp) => timestamp.toISOString()),
+        labels: timestamps.map((timestamp) =>
+          new Date(new Date(timestamp).getTime() + offset).toISOString(),
+        ),
         datasets: [
           {
             label: title,

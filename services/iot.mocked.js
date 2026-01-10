@@ -6,11 +6,11 @@ const SENSORS = {
     description: "Basic sensor in the middle of the living room.",
     groupName: "Level 1",
     location: {
-      x: -40.855347447356536,
-      y: -61.63255171477795,
-      z: 0.05078194733289365,
+      x: 0,
+      y: -2.05,
+      z: 2.656,
     },
-    objectId: 2176,
+    objectId: 5418,
   },
 };
 

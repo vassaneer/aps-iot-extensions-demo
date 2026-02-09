@@ -252,9 +252,17 @@ async function getSamples(timerange, resolution = 32) {
     const da2 = await resp2.json();
     data1 = calData(da);
     data2 = calData(da2);
+    const count =
+      data1.timestamps.length > data2.timestamps.length
+        ? data1.timestamps.length
+        : data2.timestamps.length;
+    const time =
+      data1.timestamps.length > data2.timestamps.length
+        ? data1.timestamps
+        : data2.timestamps;
     return {
-      count: data1.timestamps.length,
-      timestamps: data1.timestamps,
+      count: count,
+      timestamps: time,
       data: {
         "sensor-1": {
           deflection: data1.deflection,

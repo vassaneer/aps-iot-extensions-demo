@@ -221,7 +221,6 @@ export class MyDataView {
 
     this._refreshIntervalId = setInterval(async () => {
       try {
-        console.log(this._timerange);
         await this.refresh(this._timerange, resolution);
       } catch (err) {
         console.error("Auto refresh failed:", err);

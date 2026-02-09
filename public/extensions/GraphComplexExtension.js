@@ -1,11 +1,11 @@
 /// import * as Autodesk from "@types/forge-viewer";
 
 import { UIBaseExtension } from "./BaseExtension.js";
-import { SensorDetailPanel } from "./SensorDetailPanel.js";
+import { GraphComplexPanel } from "./GraphComplexPanel.js";
 
-export const SensorDetailExtensionID = "IoT.SensorDetail";
+export const GraphComplexExtensionID = "IoT.GraphComplex";
 
-export class SensorDetailExtension extends UIBaseExtension {
+export class GraphComplexExtension extends UIBaseExtension {
   constructor(viewer, options) {
     super(viewer, options);
   }
@@ -27,7 +27,7 @@ export class SensorDetailExtension extends UIBaseExtension {
       const sensor = this.dataView.getSensors().get(this.currentSensorID);
       if (sensor) {
         this.panel.setTitle(
-          sensor ? `Sensor: ${sensor.name}` : "Sensor Details",
+          sensor ? `Graph: ${sensor.name}` : "Graph Complex",
           {},
         );
         this.panel.updateCharts(this.currentSensorID, this.dataView);
@@ -60,12 +60,12 @@ export class SensorDetailExtension extends UIBaseExtension {
       "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js",
       "Chart",
     );
-    this.panel = new SensorDetailPanel(
+    this.panel = new GraphComplexPanel(
       this.viewer,
-      "iot-sensor-detail",
-      "Sensor Details",
+      "iot-graph-complex",
+      "Graph Complex",
     );
-    console.log(`${SensorDetailExtensionID} extension loaded.`);
+    console.log(`${GraphComplexExtensionID} extension loaded.`);
     return true;
   }
 
@@ -73,7 +73,7 @@ export class SensorDetailExtension extends UIBaseExtension {
     super.unload();
     this.panel?.uninitialize();
     this.panel = undefined;
-    console.log(`${SensorDetailExtensionID} extension unloaded.`);
+    console.log(`${GraphComplexExtensionID} extension unloaded.`);
     return true;
   }
 
@@ -91,9 +91,9 @@ export class SensorDetailExtension extends UIBaseExtension {
 
   onToolbarCreated() {
     this.createToolbarButton(
-      "iot-sensor-detail-btn",
-      "IoT Sensor Detail",
-      "https://img.icons8.com/ios-filled/50/000000/show-property.png",
+      "iot-graph-complex-btn",
+      "IoT Graph Complex",
+      "https://img.icons8.com/?size=100&id=8322&format=png&color=000000",
     ); // <a href="https://icons8.com/icon/10255/show-property">Show Property icon by Icons8</a>
   }
 }

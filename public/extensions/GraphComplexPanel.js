@@ -3,7 +3,7 @@
 
 import { findNearestTimestampIndex } from "./HistoricalDataView.js";
 
-export class SensorDetailPanel extends Autodesk.Viewing.UI.DockingPanel {
+export class GraphComplexPanel extends Autodesk.Viewing.UI.DockingPanel {
   constructor(viewer, id, title, options) {
     super(viewer.container, id, title, options);
     this.container.style.left =
@@ -17,7 +17,7 @@ export class SensorDetailPanel extends Autodesk.Viewing.UI.DockingPanel {
         500) + "px";
     this.container.style.height =
       ((options === null || options === void 0 ? void 0 : options.height) ||
-        400) + "px";
+        350) + "px";
     this.container.style.resize = "none";
     this._charts = [];
     this._lastHighlightedPointIndex = -1;
@@ -43,10 +43,9 @@ export class SensorDetailPanel extends Autodesk.Viewing.UI.DockingPanel {
     this._charts = [];
 
     const chartHeight = 200;
-
-    for (const [channelId, channel] of dataView.getChannels().entries()) {
+    for (const [channelId, channel] of dataView.getChannelsGraph().entries()) {
       const canvas = document.createElement("canvas");
-      canvas.id = `sensor-detail-chart-${channelId}`;
+      canvas.id = `graph-complex-chart-${channelId}`;
       canvas.style.display = "block";
       canvas.style.width = "100%";
       canvas.style.height = `${chartHeight}px`;
@@ -54,16 +53,37 @@ export class SensorDetailPanel extends Autodesk.Viewing.UI.DockingPanel {
 
       this.content.appendChild(canvas);
 
-      const samples = dataView.getSamples(sensorId, channelId);
+      const samplesX = dataView.getSamples(sensorId, channel.varX);
+      const samplesY = dataView.getSamples(sensorId, channel.varY);
+      // zip X + Y + timestamp
+      const combined = samplesX.timestamps.map((ts, i) => ({
+        ts: +new Date(ts),
+        x: samplesX.values[i],
+        y: samplesY.values[i],
+      }));
+
+      // sort ตาม timestamp (เลือก asc / desc)
+      combined.sort((a, b) => a.x - b.x);
+
+      // unzip กลับ
+      const sortedSamplesX = {
+        timestamps: combined.map((p) => new Date(p.ts)),
+        values: combined.map((p) => p.x),
+      };
+
+      const sortedSamplesY = {
+        timestamps: combined.map((p) => new Date(p.ts)),
+        values: combined.map((p) => p.y),
+      };
 
       this._charts.push(
         this._createChart(
           canvas,
-          samples?.timestamps || [],
-          samples?.values || [],
+          sortedSamplesX?.values || [],
+          sortedSamplesY?.values || [],
           channel.min,
           channel.max,
-          `${channel.name} (${channel.unit})`,
+          `${channel.name} (${channel.unitX})`,
         ),
       );
     }
@@ -71,12 +91,11 @@ export class SensorDetailPanel extends Autodesk.Viewing.UI.DockingPanel {
 
   _createChart(canvas, timestamps, values, min, max, title) {
     const offset = 7 * 60 * 60 * 1000;
+    // console.log(values);
     return new Chart(canvas.getContext("2d"), {
       type: "line",
       data: {
-        labels: timestamps.map((timestamp) =>
-          new Date(new Date(timestamp).getTime() + offset).toISOString(),
-        ),
+        labels: timestamps,
         datasets: [
           {
             label: title,
@@ -98,7 +117,7 @@ export class SensorDetailPanel extends Autodesk.Viewing.UI.DockingPanel {
   }
 
   updateCursor(sensorId, dataView, currentTime) {
-    const defaultChannelID = dataView.getChannels().keys().next().value;
+    const defaultChannelID = dataView.getChannelsGraph().keys().next().value;
     if (!defaultChannelID) {
       return;
     }

@@ -7,6 +7,7 @@ let {
   PORT,
   DATA_API_TOKEN,
   DATA_API_ENDPOINT,
+  DATA_API_ENDPOINT_2,
 } = process.env;
 if (!APS_CLIENT_ID || !APS_CLIENT_SECRET) {
   console.warn("Missing some of the environment variables.");
@@ -20,4 +21,5 @@ module.exports = {
   PORT,
   DATA_API_TOKEN,
   DATA_API_ENDPOINT,
+  DATA_API_ENDPOINT_2,
 };

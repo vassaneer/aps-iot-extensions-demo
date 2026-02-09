@@ -64,8 +64,6 @@ export class SensorListPanel extends Autodesk.Viewing.UI.PropertyPanel {
       for (const [channelId, channel] of dataView.getChannels().entries()) {
         const samples = dataView.getSamples(sensorId, channelId);
         if (samples) {
-          // console.log(timestamp);
-          // console.log(samples.timestamps);
           const closestIndex = findNearestTimestampIndex(
             samples.timestamps,
             timestamp,

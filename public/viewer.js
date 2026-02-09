@@ -4,11 +4,15 @@ import { SensorListExtension } from "./extensions/SensorListExtension.js";
 import { SensorDetailExtension } from "./extensions/SensorDetailExtension.js";
 import { SensorSpritesExtension } from "./extensions/SensorSpritesExtension.js";
 import { SensorHeatmapsExtension } from "./extensions/SensorHeatmapsExtension.js";
+import { ConstantExtension } from "./extensions/ConstantExtension.js";
+import { GraphComplexExtension } from "./extensions/GraphComplexExtension.js";
 
 export const SensorListExtensionID = "IoT.SensorList";
 export const SensorDetailExtensionID = "IoT.SensorDetail";
 export const SensorSpritesExtensionID = "IoT.SensorSprites";
 export const SensorHeatmapsExtensionID = "IoT.SensorHeatmaps";
+export const ConstantExtensionID = "IoT.Constant";
+export const GraphComplexExtensionID = "IoT.GraphComplex";
 
 Autodesk.Viewing.theExtensionManager.registerExtension(
   SensorListExtensionID,
@@ -25,6 +29,14 @@ Autodesk.Viewing.theExtensionManager.registerExtension(
 Autodesk.Viewing.theExtensionManager.registerExtension(
   SensorHeatmapsExtensionID,
   SensorHeatmapsExtension,
+);
+Autodesk.Viewing.theExtensionManager.registerExtension(
+  ConstantExtensionID,
+  ConstantExtension,
+);
+Autodesk.Viewing.theExtensionManager.registerExtension(
+  GraphComplexExtensionID,
+  GraphComplexExtension,
 );
 
 async function getAccessToken(callback) {

@@ -4,6 +4,8 @@ import {
   SensorSpritesExtensionID,
   SensorDetailExtensionID,
   SensorHeatmapsExtensionID,
+  ConstantExtensionID,
+  GraphComplexExtensionID,
 } from "./viewer.js";
 import { initTimeline } from "./timeline.js";
 import { MyDataView } from "./dataview.js";
@@ -20,6 +22,8 @@ const EXTENSIONS = [
   SensorSpritesExtensionID,
   SensorDetailExtensionID,
   SensorHeatmapsExtensionID,
+  ConstantExtensionID,
+  GraphComplexExtensionID,
   "Autodesk.AEC.LevelsExtension",
 ];
 
@@ -46,6 +50,8 @@ viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, async () => {
     SensorSpritesExtensionID,
     SensorDetailExtensionID,
     SensorHeatmapsExtensionID,
+    ConstantExtensionID,
+    GraphComplexExtensionID,
   ].map((id) => viewer.getExtension(id));
   for (const ext of extensions) {
     ext.dataView = dataView;

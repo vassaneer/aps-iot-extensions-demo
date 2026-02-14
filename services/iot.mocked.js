@@ -53,8 +53,8 @@ const CHANNELS = {
     description: "Measure deflection in millimeter",
     type: "double",
     unit: "mm",
-    min: -5,
-    max: 5,
+    min: -7.5,
+    max: 7.5,
     color: [
       "#FF0000",
       "#FF6A00",
@@ -71,8 +71,8 @@ const CHANNELS = {
     description: "Measure Stress",
     type: "double",
     unit: "ksc",
-    min: -100000,
-    max: 100000,
+    min: -2400,
+    max: 2400,
     color: [
       "#FF0000",
       "#FF6A00",
@@ -89,8 +89,8 @@ const CHANNELS = {
     description: "Measure Strain",
     type: "double",
     unit: "ε",
-    min: -100000,
-    max: 100000,
+    min: -0.0009,
+    max: 0.0009,
     color: [
       "#FF0000",
       "#FF6A00",
@@ -107,8 +107,8 @@ const CHANNELS = {
     description: "Measure Weight",
     type: "double",
     unit: "kg/m",
-    min: -100000,
-    max: 100000,
+    min: 0,
+    max: 500,
     color: [
       "#FF0000",
       "#FF6A00",

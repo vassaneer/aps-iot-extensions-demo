@@ -205,7 +205,7 @@ function calData(data) {
           w =
             (8 * constant.E * omega * constant.S * 100) /
             (constant.L * constant.L);
-          weight.unshift(w);
+          weight.unshift(Math.abs(w));
         }
         if (
           constant.L != null &&

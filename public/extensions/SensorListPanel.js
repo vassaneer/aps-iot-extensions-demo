@@ -68,7 +68,6 @@ export class SensorListPanel extends Autodesk.Viewing.UI.PropertyPanel {
             samples.timestamps,
             timestamp,
           ); // TODO: reuse this code from BaseExtension
-          console.log(channel);
           if (samples.values[closestIndex]) {
             row[channelId] =
               `${samples.values[closestIndex].toFixed(channel.precision)} ${channel.unit}`;

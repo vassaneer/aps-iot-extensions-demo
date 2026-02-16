@@ -74,7 +74,7 @@ const CHANNELS = {
     unit: "ksc",
     min: -2400,
     max: 2400,
-    precision: 7,
+    precision: 2,
     color: [
       "#FF0000",
       "#FF6A00",
@@ -93,7 +93,7 @@ const CHANNELS = {
     unit: "ε",
     min: -0.0009,
     max: 0.0009,
-    precision: 2,
+    precision: 7,
     color: [
       "#FF0000",
       "#FF6A00",
@@ -193,7 +193,7 @@ function calData(data) {
           omega =
             (def * 384 * constant.C * 10) /
             (40 * constant.L * constant.L * 100);
-          stress.unshift(omega);
+          strain.unshift(omega);
         }
         if (
           constant.E != null &&
@@ -214,7 +214,7 @@ function calData(data) {
           w != null
         ) {
           const st = (w * constant.L * constant.L) / 100 / 8 / constant.S;
-          strain.unshift(st);
+          stress.unshift(st);
         }
       });
     }

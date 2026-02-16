@@ -235,28 +235,26 @@ async function getSamples(timerange, resolution = 32) {
   const endEpoch = new Date(timerange.end).getTime() - 7 * 60 * 60 * 1000;
 
   try {
-    // const resp = await fetch(
-    //   DATA_API_ENDPOINT + "&startTs=" + startEpoch + "&endTs=" + endEpoch,
-    //   {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: "Bearer " + DATA_API_TOKEN,
-    //     },
-    //   },
-    // );
-    // const resp2 = await fetch(
-    //   DATA_API_ENDPOINT_2 + "&startTs=" + startEpoch + "&endTs=" + endEpoch,
-    //   {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: "Bearer " + DATA_API_TOKEN,
-    //     },
-    //   },
-    // );
-    // const da = await resp.json();
-    // const da2 = await resp2.json();
-    const da = { deflection_mm: [{ value: 2.66 }] };
-    const da2 = { deflection_mm: [{ value: 2.66 }] };
+    const resp = await fetch(
+      DATA_API_ENDPOINT + "&startTs=" + startEpoch + "&endTs=" + endEpoch,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + DATA_API_TOKEN,
+        },
+      },
+    );
+    const resp2 = await fetch(
+      DATA_API_ENDPOINT_2 + "&startTs=" + startEpoch + "&endTs=" + endEpoch,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + DATA_API_TOKEN,
+        },
+      },
+    );
+    const da = await resp.json();
+    const da2 = await resp2.json();
     data1 = calData(da);
     data2 = calData(da2);
     const count =

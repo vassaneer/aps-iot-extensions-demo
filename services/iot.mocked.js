@@ -55,6 +55,7 @@ const CHANNELS = {
     unit: "mm",
     min: -7.5,
     max: 7.5,
+    precision: 2,
     color: [
       "#FF0000",
       "#FF6A00",
@@ -73,6 +74,7 @@ const CHANNELS = {
     unit: "ksc",
     min: -2400,
     max: 2400,
+    precision: 7,
     color: [
       "#FF0000",
       "#FF6A00",
@@ -91,6 +93,7 @@ const CHANNELS = {
     unit: "ε",
     min: -0.0009,
     max: 0.0009,
+    precision: 2,
     color: [
       "#FF0000",
       "#FF6A00",
@@ -109,6 +112,7 @@ const CHANNELS = {
     unit: "kg/m",
     min: 0,
     max: 500,
+    precision: 2,
     color: [
       "#FF0000",
       "#FF6A00",
@@ -186,7 +190,9 @@ function calData(data) {
         var omega = null;
         var w = null;
         if (constant.C != null && constant.L != null && constant.L != 0) {
-          omega = (def * 384 * constant.C) / (40 * constant.L * constant.L);
+          omega =
+            (def * 384 * constant.C * 10) /
+            (40 * constant.L * constant.L * 100);
           stress.unshift(omega);
         }
         if (
@@ -207,9 +213,8 @@ function calData(data) {
           constant.S != 0 &&
           w != null
         ) {
-          strain.unshift(
-            (((w * constant.L * constant.L) / 8) * 100) / constant.S,
-          );
+          const st = (w * constant.L * constant.L) / 100 / 8 / constant.S;
+          strain.unshift(st);
         }
       });
     }
@@ -230,26 +235,28 @@ async function getSamples(timerange, resolution = 32) {
   const endEpoch = new Date(timerange.end).getTime() - 7 * 60 * 60 * 1000;
 
   try {
-    const resp = await fetch(
-      DATA_API_ENDPOINT + "&startTs=" + startEpoch + "&endTs=" + endEpoch,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + DATA_API_TOKEN,
-        },
-      },
-    );
-    const resp2 = await fetch(
-      DATA_API_ENDPOINT_2 + "&startTs=" + startEpoch + "&endTs=" + endEpoch,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + DATA_API_TOKEN,
-        },
-      },
-    );
-    const da = await resp.json();
-    const da2 = await resp2.json();
+    // const resp = await fetch(
+    //   DATA_API_ENDPOINT + "&startTs=" + startEpoch + "&endTs=" + endEpoch,
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: "Bearer " + DATA_API_TOKEN,
+    //     },
+    //   },
+    // );
+    // const resp2 = await fetch(
+    //   DATA_API_ENDPOINT_2 + "&startTs=" + startEpoch + "&endTs=" + endEpoch,
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: "Bearer " + DATA_API_TOKEN,
+    //     },
+    //   },
+    // );
+    // const da = await resp.json();
+    // const da2 = await resp2.json();
+    const da = { deflection_mm: [{ value: 2.66 }] };
+    const da2 = { deflection_mm: [{ value: 2.66 }] };
     data1 = calData(da);
     data2 = calData(da2);
     const count =

@@ -17,7 +17,7 @@ const SENSORS = {
     description: "Basic sensor in the middle of the living room.",
     groupName: "Level 1",
     location: {
-      x: 0,
+      x: -0.1,
       y: -2.05,
       z: 2.656,
     },
@@ -28,7 +28,7 @@ const SENSORS = {
     description: "Basic sensor in the middle of the living room.",
     groupName: "Level 1",
     location: {
-      x: 1.6,
+      x: 2.6,
       y: -2.05,
       z: 2.656,
     },
@@ -39,7 +39,7 @@ const SENSORS = {
     description: "Basic sensor in the middle of the living room.",
     groupName: "Level 1",
     location: {
-      x: -1.6,
+      x: -2.8,
       y: -2.05,
       z: 2.656,
     },

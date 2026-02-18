@@ -89,6 +89,14 @@ export class MyDataView {
     return fallback;
   }
 
+  playAlarm() {
+    const audio = document.getElementById("alarmSound");
+    audio.currentTime = 0; // เริ่มใหม่ทุกครั้ง
+    audio.play().catch((err) => {
+      console.log("Autoplay blocked:", err);
+    });
+  }
+
   async _loadSamples(timerange, resolution) {
     var { start, end } = timerange;
     start = this.normalizeDate(
@@ -131,6 +139,7 @@ export class MyDataView {
         alert(
           `⚠️ ALERT\nSensor: ${sensorId}\nThreshold = ${thresholdD} \nLast deflection = ${lastDeflection}`,
         );
+        this.playAlarm();
       }
 
       const lastStress = stress[stress.length - 1];
@@ -139,6 +148,7 @@ export class MyDataView {
         alert(
           `⚠️ ALERT\nSensor: ${sensorId}\nThreshold = ${thresholdS}\nLast stress = ${lastStress}`,
         );
+        this.playAlarm();
       }
     });
 
